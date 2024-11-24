@@ -1,17 +1,18 @@
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <div>
       <header>
-        <a className="logo" href="#">
+        <Link className="logo" to="/">
           Pouria Shop
-        </a>
-        <a href="#">
+        </Link>
+        <Link to="/cart">
           <AiOutlineShoppingCart className="shop-icon" />
           <span>2</span>
-        </a>
+        </Link>
       </header>
     </div>
   );
