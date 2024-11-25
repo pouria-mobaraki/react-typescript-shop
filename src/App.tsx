@@ -4,11 +4,13 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import Header from "./components/Header";
 import { useRoutes } from "react-router-dom";
 import routes from "./routs";
+import CartContextProvider from "./context/cartContext";
 function App() {
   const router = useRoutes(routes)
 
   return (
-    // <ContextDataProvider>
+    
+    <CartContextProvider>
     <div className="app">
      <Header />
 
@@ -24,7 +26,7 @@ function App() {
         </a>
       </footer>
     </div>
-    // </ContextDataProvider>
+    </CartContextProvider>
   );
 }
 
