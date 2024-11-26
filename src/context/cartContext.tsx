@@ -15,7 +15,7 @@ type cartContextType ={
     shop:Product[]
 }
 
-const cartContext = createContext({} as cartContextType)
+export const cartContext = createContext({} as cartContextType)
 
 const CartContextProvider = ({children}:CartContextProviderProps) => {
     
@@ -28,7 +28,24 @@ const CartContextProvider = ({children}:CartContextProviderProps) => {
         )
      },[])
 
-    const addProduct = (id:number) => {}
+    const addProduct = (id:number) => {setUserCart(prevProducts => {
+        const mainProductInCart = UserCart.find(product => product.id ===id)
+
+        if(mainProductInCart){
+          return prevProducts.map(product => {
+            if(product.id === id){
+                return {...product,count:product.count + 1}
+            }else{
+                return product
+            }
+           })
+        }else{
+            const mainProductInShop = shop.find(product => product.id === id) as Product
+          return [...prevProducts,{...mainProductInShop,count:1}]
+        }
+
+        
+    })}
     const  removeProduct = (id:number) => {setUserCart(prevProducts => prevProducts.filter(product => product.id !== id))}
     const  removeAll= ()=> {setUserCart([])}
     
