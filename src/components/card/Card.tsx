@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import { Product } from '../Products.types'
+import { cartContext } from '../../context/cartContext'
+import swal from 'sweetalert'
+import { useNavigate } from 'react-router-dom'
 
-function card({title,image,price,rating}:Product) {
+function Card({id,title,image,price,rating}:Product) {
+
+  const context = useContext(cartContext)
+  const navigate = useNavigate()
+
+  const addToBasketHandle = () => {
+    context.addProduct(id)
+    swal({
+      title:'محصول مورد نظر به سبد خرید اضافه شد',
+      icon:'success',
+      buttons:['اوکی','رفتن به سبد خرید'],
+    }).then((result)=>{
+      console.log(result);
+
+      if(result){
+        navigate('/cart')
+      }
+      
+    })
+  }
   return (
     <>
     <div className="card">
@@ -11,7 +33,7 @@ function card({title,image,price,rating}:Product) {
             alt=""
           />
           <main>
-            <p>{title.slice(15)}...</p>
+            <p>{title.slice(0,13)}...</p>
             <div className="card-details">
               <div>
 
@@ -25,10 +47,10 @@ function card({title,image,price,rating}:Product) {
               </div>
               <p>{price}</p>
             </div>
-            <button>Add to Basket</button>
+            <button onClick={addToBasketHandle}>Add to Basket</button>
           </main>
         </div></>
   )
 }
 
-export default card
+export default Card

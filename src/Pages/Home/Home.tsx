@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import { cartContext } from '../../context/cartContext'
-import Card from '../../components/card/card'
+import Card from '../../components/card/Card'
 
 function Home() {
 

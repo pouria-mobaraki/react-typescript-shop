@@ -1,10 +1,15 @@
 import React, { useContext } from "react";
 import "./Cart.css";
 import { AiFillStar, AiOutlineDelete, AiOutlineStar } from "react-icons/ai";
+import { cartContext } from "../context/cartContext";
+// import { Product } from "../components/Products.types";
+
 export default function Cart() {
+
+  const context = useContext(cartContext)
   return (
     <>
-      {true ? ( // if shoppping cart is not empty
+      {context.UserCart.length !== 0 ? ( 
         <>
           <section className="cart-topbar">
             <p className="title">All Products In Basket:</p>
@@ -13,35 +18,35 @@ export default function Cart() {
             </button>
           </section>
           <main className="card-index">
-            <div className="card">
+            {context.UserCart.map(product =>(
+              <div className="card">
               <img
-                src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                src={product.image}
                 alt=""
               />
               <main>
-                <p>Test Title ...</p>
+                <p>{product.title.slice(0,13)}...</p>
                 <div className="card-details">
                   <div>
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
+                  {
+                    Array(Math.ceil(product.rating.rate)).fill(0).map((item)=> <AiFillStar style={{color:'orange'}}/>)
+                }
+                 {
+                    Array(5-Math.ceil(product.rating.rate)).fill(0).map((item)=> <AiOutlineStar style={{color:'orange'}}/>)
+                }
                   </div>
-                  <p>111$</p>
+                  <p>{product.price}</p>
                 </div>
                 <div className="product-count">
-                  <p>Count: 22</p>
+                  <p>Count: {product.count}</p>
                 </div>
                 <button>Remove From Basket</button>
               </main>
             </div>
+            ))
+            }
+              
+            
           </main>
         </>
       ) : (
