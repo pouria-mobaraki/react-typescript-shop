@@ -13,7 +13,7 @@ export default function Cart() {
         <>
           <section className="cart-topbar">
             <p className="title">All Products In Basket:</p>
-            <button>
+            <button onClick={context.removeAll}>
               Remove All Product <AiOutlineDelete className="delete-icon" />
             </button>
           </section>
@@ -40,7 +40,7 @@ export default function Cart() {
                 <div className="product-count">
                   <p>Count: {product.count}</p>
                 </div>
-                <button>Remove From Basket</button>
+                <button onClick={ ()=>context.removeProduct(product.id)}>Remove From Basket</button>
               </main>
             </div>
             ))
